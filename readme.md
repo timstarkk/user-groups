@@ -15,7 +15,6 @@ which can be invoked to synchronize the client code with the server openapi defi
 after making changes.
 
 ```shell
-cd web
 yarn install
 yarn api:sync
 ```
