@@ -10,9 +10,9 @@ can find instructions for syncing the client API below.
 ## Client
 
 The client is built using `next`, and utilises css-in-js along with `twin.macro`
-for styling. The client api for the server is generated using a tool called `orval`,
-which can be invoked to synchronize the client code with the server openapi definitions
-after making changes.
+for styling. The client api for the server is generated using a tool called 
+[`orval`](https://orval.dev/), which can be invoked to synchronize the client code 
+with the server openapi definitions after making changes.
 
 ```shell
 yarn install
