@@ -28,12 +28,12 @@ const addMembers = (g: Group, users: UserId[]) => {
   users.forEach((u) => g.members.add(u));
 };
 
-addMembers(addGroup("Admins", "This group is for administrators of the platform."), [
+addMembers(addGroup("Admin", "This group is for administrators of the platform."), [
   "alex",
   "mary",
   "kathy",
 ] as UserId[]);
-addGroup("MDisrupt", "This group is for internal users.");
+addGroup("Employee", "This group is for internal users.");
 addGroup("Client", "This group is for clients of the platform.");
 addGroup("Expert", "This group is for experts on the platform.");
 
