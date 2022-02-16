@@ -6,8 +6,11 @@
  */
 import {
   useQuery,
+  useMutation,
   UseQueryOptions,
+  UseMutationOptions,
   QueryFunction,
+  MutationFunction,
   UseQueryResult,
   QueryKey,
 } from "react-query";
@@ -19,6 +22,197 @@ type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (
 ) => Promise<infer R>
   ? R
   : any;
+
+/**
+ * Removes a user from a group
+ */
+export const useDeleteApiGroupsIdUserHook = () => {
+  const deleteApiGroupsIdUser = useAxios<void>();
+
+  return (id?: string, user?: string) => {
+    return deleteApiGroupsIdUser({
+      url: `/api/groups/${id}/${user}`,
+      method: "delete",
+    });
+  };
+};
+
+export const useDeleteApiGroupsIdUser = <
+  TError = unknown,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    AsyncReturnType<ReturnType<typeof useDeleteApiGroupsIdUserHook>>,
+    TError,
+    { id?: string; user?: string },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options || {};
+
+  const deleteApiGroupsIdUser = useDeleteApiGroupsIdUserHook();
+
+  const mutationFn: MutationFunction<
+    AsyncReturnType<ReturnType<typeof useDeleteApiGroupsIdUserHook>>,
+    { id?: string; user?: string }
+  > = (props) => {
+    const { id, user } = props || {};
+
+    return deleteApiGroupsIdUser(id, user);
+  };
+
+  return useMutation<
+    AsyncReturnType<typeof deleteApiGroupsIdUser>,
+    TError,
+    { id?: string; user?: string },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+/**
+ * Add a user to a group
+ */
+export const usePutApiGroupsIdUserHook = () => {
+  const putApiGroupsIdUser = useAxios<void>();
+
+  return (id?: string, user?: string) => {
+    return putApiGroupsIdUser({
+      url: `/api/groups/${id}/${user}`,
+      method: "put",
+    });
+  };
+};
+
+export const usePutApiGroupsIdUser = <
+  TError = unknown,
+  TContext = unknown
+>(options?: {
+  mutation?: UseMutationOptions<
+    AsyncReturnType<ReturnType<typeof usePutApiGroupsIdUserHook>>,
+    TError,
+    { id?: string; user?: string },
+    TContext
+  >;
+}) => {
+  const { mutation: mutationOptions } = options || {};
+
+  const putApiGroupsIdUser = usePutApiGroupsIdUserHook();
+
+  const mutationFn: MutationFunction<
+    AsyncReturnType<ReturnType<typeof usePutApiGroupsIdUserHook>>,
+    { id?: string; user?: string }
+  > = (props) => {
+    const { id, user } = props || {};
+
+    return putApiGroupsIdUser(id, user);
+  };
+
+  return useMutation<
+    AsyncReturnType<typeof putApiGroupsIdUser>,
+    TError,
+    { id?: string; user?: string },
+    TContext
+  >(mutationFn, mutationOptions);
+};
+/**
+ * Gets a user by id
+ */
+export const useGetApiGroupsIdHook = () => {
+  const getApiGroupsId = useAxios<void>();
+
+  return (id?: string) => {
+    return getApiGroupsId({ url: `/api/groups/${id}`, method: "get" });
+  };
+};
+
+export const getGetApiGroupsIdQueryKey = (id?: string) => [`/api/groups/${id}`];
+
+export const useGetApiGroupsId = <
+  TData = AsyncReturnType<ReturnType<typeof useGetApiGroupsIdHook>>,
+  TError = unknown
+>(
+  id?: string,
+  options?: {
+    query?: UseQueryOptions<
+      AsyncReturnType<ReturnType<typeof useGetApiGroupsIdHook>>,
+      TError,
+      TData
+    >;
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options || {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetApiGroupsIdQueryKey(id);
+
+  const getApiGroupsId = useGetApiGroupsIdHook();
+
+  const queryFn: QueryFunction<
+    AsyncReturnType<ReturnType<typeof useGetApiGroupsIdHook>>
+  > = () => getApiGroupsId(id);
+
+  const query = useQuery<
+    AsyncReturnType<ReturnType<typeof useGetApiGroupsIdHook>>,
+    TError,
+    TData
+  >(queryKey, queryFn, { enabled: !!id, ...queryOptions });
+
+  return {
+    queryKey,
+    ...query,
+  };
+};
+
+/**
+ * Gets all the users of the group
+ */
+export const useGetApiGroupsIdUsersHook = () => {
+  const getApiGroupsIdUsers = useAxios<void>();
+
+  return (id?: string) => {
+    return getApiGroupsIdUsers({
+      url: `/api/groups/${id}/users`,
+      method: "get",
+    });
+  };
+};
+
+export const getGetApiGroupsIdUsersQueryKey = (id?: string) => [
+  `/api/groups/${id}/users`,
+];
+
+export const useGetApiGroupsIdUsers = <
+  TData = AsyncReturnType<ReturnType<typeof useGetApiGroupsIdUsersHook>>,
+  TError = unknown
+>(
+  id?: string,
+  options?: {
+    query?: UseQueryOptions<
+      AsyncReturnType<ReturnType<typeof useGetApiGroupsIdUsersHook>>,
+      TError,
+      TData
+    >;
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options || {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetApiGroupsIdUsersQueryKey(id);
+
+  const getApiGroupsIdUsers = useGetApiGroupsIdUsersHook();
+
+  const queryFn: QueryFunction<
+    AsyncReturnType<ReturnType<typeof useGetApiGroupsIdUsersHook>>
+  > = () => getApiGroupsIdUsers(id);
+
+  const query = useQuery<
+    AsyncReturnType<ReturnType<typeof useGetApiGroupsIdUsersHook>>,
+    TError,
+    TData
+  >(queryKey, queryFn, { enabled: !!id, ...queryOptions });
+
+  return {
+    queryKey,
+    ...query,
+  };
+};
 
 /**
  * Gets all groups in the system
@@ -66,7 +260,60 @@ export const useGetApiGroups = <
 };
 
 /**
- * Gets all the users of the application
+ * Gets all the groups of the user
+ */
+export const useGetApiUsersIdGroupsHook = () => {
+  const getApiUsersIdGroups = useAxios<void>();
+
+  return (id?: string) => {
+    return getApiUsersIdGroups({
+      url: `/api/users/${id}/groups`,
+      method: "get",
+    });
+  };
+};
+
+export const getGetApiUsersIdGroupsQueryKey = (id?: string) => [
+  `/api/users/${id}/groups`,
+];
+
+export const useGetApiUsersIdGroups = <
+  TData = AsyncReturnType<ReturnType<typeof useGetApiUsersIdGroupsHook>>,
+  TError = unknown
+>(
+  id?: string,
+  options?: {
+    query?: UseQueryOptions<
+      AsyncReturnType<ReturnType<typeof useGetApiUsersIdGroupsHook>>,
+      TError,
+      TData
+    >;
+  }
+): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions } = options || {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetApiUsersIdGroupsQueryKey(id);
+
+  const getApiUsersIdGroups = useGetApiUsersIdGroupsHook();
+
+  const queryFn: QueryFunction<
+    AsyncReturnType<ReturnType<typeof useGetApiUsersIdGroupsHook>>
+  > = () => getApiUsersIdGroups(id);
+
+  const query = useQuery<
+    AsyncReturnType<ReturnType<typeof useGetApiUsersIdGroupsHook>>,
+    TError,
+    TData
+  >(queryKey, queryFn, { enabled: !!id, ...queryOptions });
+
+  return {
+    queryKey,
+    ...query,
+  };
+};
+
+/**
+ * Gets a user by id
  */
 export const useGetApiUsersIdHook = () => {
   const getApiUsersId = useAxios<void>();
