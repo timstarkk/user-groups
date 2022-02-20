@@ -4,7 +4,7 @@
 A basic application for adding and removing users from groups as well as list which groups a user is associated with, and vice versa.
 
 From the homepage, simply click and drag a user to the group you wish to associate them with, and that's it!
-If you want to remove a user from a group that can be done from either the /groups/[id] page, or /users/[id]. (after clicking the 'edit' button)
+If you want to remove a user from a group that can be done from either the ```'/groups/[id]'``` page, or ```'/users/[id]'```. (after clicking 'edit')
 
 ## To Run Locally
 
