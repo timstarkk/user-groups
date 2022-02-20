@@ -4,21 +4,23 @@
 A basic application for adding and removing users from groups as well as list which groups a user is associated with, and vice versa.
 
 From the homepage, simply click and drag a user to the group you wish to associate them with, and that's it!
-If you want to remove a user from a group that can be done from either the ```'/groups/[id]'``` page, or ```'/users/[id]'```. (after clicking 'edit')
+
+To remove a user from a group, (from the ```'/groups/[id]'``` page, or ```'/users/[id]'```), click 'edit', then 'remove'
 
 ## To Run Locally
 
 ### System Requirements: 
 
  - Node.js 12.22.0 or later
+ - Must have [`Git installed`](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
  - MacOS, Windows (including WSL), and Linux are supported
 
  
 ### Instructions:
  1. Clone repo: ```'git clone https://github.com/timstarkk/user-groups.git'```
  2.  Navigate to root directory ```'/user-groups'```
- 3. Install Dependencies ```'yarn install'``` or ```'npm install'```
- 4. Run ```'yarn build'``` or ```'npm build'``` to create an optimized production build
+ 3. Install Dependencies ```'yarn install'``` or ```'npm install'``` (for newer versions of Node, add the flag: ```--legacy-peer-deps```)
+ 4. Run ```'yarn build'``` or ```'npm run build'``` to create an optimized production build
  5. Run ```'yarn start'``` or ```'npm start'```to start the application
  6. Visit ```'http://localhost:3000'```, enjoy!
 	
